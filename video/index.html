@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Archives | 空文维基</title>
+    <title>我的视频 | 空文维基</title>
     <meta name="author" content="空文维基" />
     <meta name="description" content="空文官方维基" />
     <meta name="keywords" content="" />
@@ -34,7 +34,9 @@
 
 
 
-<script src="/js/lib/search.js"></script>
+
+
+
 
 
 
@@ -118,42 +120,58 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            
-<div id="archives">
-    
-    <input id="search-bar" class="input" placeholder="搜索" v-model="rawSearch" />
-    
-    <div id="timeline-wrap" ref="timeline">
+            <div class="article">
+    <div>
+        <h1>我的视频</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2020/7/17
+        </span>
         
-        <div class="timeline" data-title="空文简介">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2023/10/6</div>
-                <a href="/2023/10/06/hello-world/">
-                    <h3>空文简介</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="timeline" data-title="新危线下施永强">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2023/10/13</div>
-                <a href="/2023/10/13/1/">
-                    <h3>新危线下施永强</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                </div>
-            </div>
-        </div>
         
     </div>
+    
+    <div class="content" v-pre>
+        <script src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script>
+<script>
+function selectVideo(id){
+    var src=$("#video-item-"+id).attr("data-src");
+    $("#video-select").html("<iframe id='video-iframe' src='"+src+"' scrolling='no' border='0' frameborder='no' framespacing='0' allowfullscreen='true'> </iframe>");
+    var iframe = document.getElementById("video-select")
+    if(iframe.attachEvent){
+      iframe.attachEvent("onreadystatechange", function() {
+        if (iframe.readyState === "complete" || iframe.readyState == "loaded") {
+          iframe.detachEvent("onreadystatechange", arguments.callee);
+        if (document.getElementsByClassName('video-mirror').length>0) {
+          console.log("1true")
+          $(".video-mirror").attr("style","transform:scaleX(-1);")
+          }
+        }
+      });
+    }else{
+      iframe.addEventListener("load", function() {
+        this.removeEventListener("load", arguments.call, false);
+      if (document.getElementsByClassName('video-mirror').length>0) {
+        console.log("2true")
+        $(".video-mirror").attr("style","transform:scaleX(-1);")
+      }
+      }, false);
+    }
+}
+$(document).ready(selectVideo(0));
+</script>
+    </div>
+    
+    
+    
+    
+    
+    
+    
 </div>
 
             <footer id="footer">
@@ -184,6 +202,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
